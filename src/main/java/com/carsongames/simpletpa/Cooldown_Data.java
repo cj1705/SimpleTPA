@@ -60,28 +60,7 @@ public class Cooldown_Data {
                    }
 
         }, 0L, 20L);
-      //  Timer timer = new Timer();
-    //    timer.schedule(new TimerTask() {
-     //       @Override
-      //      public void run() {
-       //         while (true){
-       //             for (UUID uuid :cooldowns.keySet()
-          //          ) {
-
-            //            Player player = Bukkit.getPlayer(uuid);
-            //            Bukkit.getLogger().info(player.getUniqueId().toString());
-              //          if(checkCooldown(player)){
-
-               //             player.sendMessage("TPA Expired");
-               //             cooldowns.remove(uuid);
-
-               //         }
-
-              //      }
-             //   }
-          //  }
-
-    //    }, 0, 100);
+  
 
     }
 
