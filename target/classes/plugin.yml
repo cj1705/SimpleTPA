@@ -1,0 +1,10 @@
+name: SimpleTPA
+version: '1'
+main: com.carsongames.simpletpa.SimpleTPA
+api-version: 1.18
+authors: [ Carson_Games ]
+description: Simple TPA
+website: https://carsongames.com
+commands:
+  tpa:
+  tpaaccept:
