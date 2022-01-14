@@ -11,10 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 /*
  *  Implements the TPA and TPAACCEPT commands
  */
 public final class SimpleTPA extends JavaPlugin {
+    ChatColor Normal = ChatColor.GREEN;
+    ChatColor Error = ChatColor.RED;
     static int cooldown = 30; // Determines the cooldown of the tpa request
     Player player ;
     public static Plugin plugin;
@@ -41,19 +44,19 @@ public final class SimpleTPA extends JavaPlugin {
             try {
                 if (Map.playermap.containsKey(player.getName())) {
                     String init = Map.playermap.get(player.getName());
-                    sender.sendMessage(ChatColor.BLUE + "Sending " + init + " to you!");
+                    sender.sendMessage(Normal + "Sending " + init + " to you!");
                     Map.playermap.remove(player.getName());
                     Cooldown_Data.cooldowns.remove(player.getUniqueId());
                     playerinit = Bukkit.getPlayer(init);
-                    playerinit.sendMessage(net.md_5.bungee.api.ChatColor.BLUE + player.getName() + " has accepted!");
+                    playerinit.sendMessage(Normal + player.getName() + " has accepted!");
                     playerinit.teleport(player.getLocation());
                 }
                 else{
-                    sender.sendMessage(net.md_5.bungee.api.ChatColor.BLUE +"No requests!");
+                    sender.sendMessage(Error +"No requests!");
                 }
             }
             catch (NullPointerException e){
-                sender.sendMessage(net.md_5.bungee.api.ChatColor.BLUE +"Player not online!");
+                sender.sendMessage(Error +"Player not online!");
                 e.printStackTrace();
             }
             return false;
@@ -72,26 +75,27 @@ public final class SimpleTPA extends JavaPlugin {
                     not work correctly. Fixed */
                     player = Bukkit.getServer().getPlayerExact(playername);
                     if (!Cooldown_Data.checkCooldown(player)) {
-                        sender.sendMessage(ChatColor.BLUE + "You have already sent this player a request.");
+                        sender.sendMessage(Error + "You have already sent this player a request.");
                         return true;
                     }
                 }
                 catch (NullPointerException e){
-                    sender.sendMessage(ChatColor.BLUE + playername + " is offline.");
+                    sender.sendMessage(Error + playername + " is offline.");
                     return true;
                 }
 
                 if(playername.equals(playerinit.getName())){
-                    sender.sendMessage(ChatColor.BLUE + "Can't tpa to yourself!");
+                    sender.sendMessage(Error + "Can't tpa to yourself!");
                     return true;
                 }
                 Cooldown_Data.setCooldown(player, cooldown);
                 Map.playermap.put(playername, playerinit.getName());
-                player.sendMessage(ChatColor.BLUE + playerinit.getName() + " would like to teleport to your location! Type /tpaaccept to allow. You have " + cooldown + " seconds to respond.");
-                sender.sendMessage(ChatColor.BLUE + "Request Sent!");
+                player.sendMessage(Normal + playerinit.getName() + " would like to teleport to your location! Type /tpaaccept to allow. You have " + cooldown + " seconds to respond.");
+                sender.sendMessage(Normal + "Request Sent!");
                 return true;
             } 
             else {
+                sender.sendMessage(Error + "Usage: /tpa (Player)");
                 return false;
             }
         }
